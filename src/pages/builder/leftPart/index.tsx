@@ -1,20 +1,34 @@
-import React from 'react';
+import React, { ComponentType } from 'react';
 import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import './index.css';
 import * as component from './component';
+import { componentIconMap, componentTextMap } from './staticUtils/iconLists';
 
 const onChange = (key: string) => {
   console.log(key);
 };
 
-const renderComponent = () => {
+const onDragStart = (name: string) => {
+  
+  return ()=>{
+    window.nowCom = name
+    console.log(window.nowCom);
+    
+  }
+
+}
+
+const renderComponent = () => { 
   return <div>
     {
-      Object.keys(component).map(name=> {
-        return <div draggable={true} className='componentItem' key={name}>
-          <div style={{display: 'inline-block'}}><span>{name}</span></div>
-        </div>;
+      Object.keys(component).map(name => {
+        const Icon = componentIconMap[name as keyof typeof componentIconMap];
+        const text = componentTextMap[name as keyof typeof componentTextMap];
+       return <div key={name} className='componentItem'>
+        <div onDragStart={onDragStart(name)} draggable={true} style={{display: 'inline-block'}}><Icon style={{marginRight: '10px'}}/><span>{text}</span></div>
+        
+       </div>
       })
     }
   </div>;

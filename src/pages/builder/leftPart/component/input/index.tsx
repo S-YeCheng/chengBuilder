@@ -1,7 +1,8 @@
 
 
-export default function Input() {
+export default function Input(props:any) {
+  const {style} = props
   return (
-    <div>Input</div>  
+    <div style={style}>Input</div>  
   ) 
 }
