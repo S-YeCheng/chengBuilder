@@ -1,4 +1,4 @@
-import React, { ComponentType } from 'react';
+import React from 'react';
 import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import './index.css';
