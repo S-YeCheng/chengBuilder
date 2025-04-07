@@ -41,7 +41,13 @@ export default function MainCom() {
         left: distance.current.endX + 'px',
         top: distance.current.endY + 'px',
       }
-      comList.push({comType:window.nowCom,style,comId})
+      const comNode = {
+        comType:window.nowCom,style,comId
+      }
+      comList.push(comNode)
+      window.renderCom = comNode
+      window.comList = comList
+      window.setComList = setComList
       setSelectId(comId)
     }
     setComList([...comList])
