@@ -4,7 +4,9 @@
 export declare global {
   interface Window {
     nowCom:string,
-    
+    renderCom:any
+    comList:any[]
+    setComList:any
   }
   interface Distance { 
     startX:number | void,
