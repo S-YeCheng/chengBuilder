@@ -1,7 +1,10 @@
 import './index.css'
 import React, { useRef, useState } from 'react'
 import * as component from '../leftPart/component'
-
+// import store from '../../../store'
+// import { subscribeHook } from '../../../store/subscribe'
+import { useDispatch, useSelector } from 'react-redux'
+import { setComList, setDragCom, setSelectCom } from '../../../store/comSlice'
 
 
 export default function MainCom() {
@@ -12,10 +15,19 @@ export default function MainCom() {
     comId:string,
   }
 
-  const [comList, setComList] = useState<ComJson[]>([])
-  const [dragCom, setDragCom] = useState<ComJson | null>(null)
+  const comReducer = useSelector((state:any)=>state.comReducer)
+  const dispatch = useDispatch()
+
+  // const [comList, setComList] = useState<ComJson[]>([])
+  const comList = JSON.parse(JSON.stringify(comReducer?.comList|| []))
+  const [dragId, setDragId] = useState<string>('')
   const [selectId, setSelectId] = useState<string>('')
-  
+
+
+  const nowCom = comReducer.dragCom
+  // subscribeHook()
+
+
   const distance = useRef<Distance>({
     startX:void 0,
     startY:void 0,
@@ -28,13 +40,15 @@ export default function MainCom() {
     distance.current.endY = e.clientY
     let style:any
     let comId=`comId_${Date.now()}`
-    if(window.nowCom == 'renderCom' && dragCom && dragCom.style){
-      
+    if(dragId){
+      const dragCom = comList.find((com:ComJson)=>com.comId == dragId)
       dragCom.style = {
         ...dragCom.style,
         left: parseInt(dragCom.style.left) + (e.clientX - (distance.current.startX || 0)) + 'px',
         top: parseInt(dragCom.style.top) + (e.clientY - (distance.current.startY || 0)) + 'px',
       }
+      setDragId('')
+      dispatch(setDragCom(dragId))
     }else{
       style = {
         position: 'absolute',
@@ -42,15 +56,16 @@ export default function MainCom() {
         top: distance.current.endY + 'px',
       }
       const comNode = {
-        comType:window.nowCom,style,comId
+        comType:nowCom,style,comId
       }
       comList.push(comNode)
-      window.renderCom = comNode
-      window.comList = comList
-      window.setComList = setComList
+      // window.renderCom = comNode
+      // window.comList = comList
+      // window.setComList = setComList
       setSelectId(comId)
+      dispatch(setSelectCom(comId))
     }
-    setComList([...comList])
+    dispatch(setComList(comList))
   }
   const onDragOver = (e: React.DragEvent<HTMLDivElement>)=>{
     e.preventDefault()
@@ -62,26 +77,26 @@ export default function MainCom() {
   const onDragStart = (com:ComJson)=>{
     return (e:any)=>{
       // setComList([...comList,com])
-      window.nowCom = "renderCom"
-      setDragCom(com)
+      // window.nowCom = "renderCom"
+      setDragId(com?.comId)
       distance.current.startX = e.clientX
       distance.current.startY = e.clientY
      
     }
   }
-  const selectCom = (com:ComJson)=>{
+  const selectCom = (com:any)=>{
     setSelectId(com.comId)
-
-    window.renderCom = com
-    window.comList = comList
-    window.setComList = setComList
+    dispatch(setSelectCom(com.comId))
+    // window.renderCom = com
+    // window.comList = comList
+    // window.setComList = setComList
   }
   
 
   return (
     <div onDrop={onDrop} onDragOver={onDragOver} onDragEnter={onDragEnter}  className='mainCom'>
       {
-        comList.map(com=>{
+        comList.map((com:ComJson)=>{
           const Com = component[com.comType as keyof typeof component];
           return (<div key={com.comId} onClick={()=>selectCom(com)}  draggable onDragStart={onDragStart(com)} > 
 

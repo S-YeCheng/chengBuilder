@@ -1,19 +1,25 @@
-import React from 'react';
+// import React from 'react';
 import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import './index.css';
 import * as component from './component';
 import { componentIconMap, componentTextMap } from './staticUtils/iconLists';
+// import store from '../../../store';
+import { setDragCom } from '../../../store/comSlice';
+import { useDispatch } from 'react-redux';
 
-const onChange = (key: string) => {
-  console.log(key);
-};
 
-const onDragStart = (name: string) => {
-  
+export default function LeftCom(){
+const dispatch = useDispatch()
+const onDragStart = (name: any) => {
   return ()=>{
-    window.nowCom = name
-    console.log(window.nowCom);
+    // window.nowCom = name
+    // console.log(window.nowCom);
+    // store.dispatch({
+    //   type:'changeNowCom',
+    //   value:name
+    // })
+    dispatch(setDragCom(name))
     
   }
 
@@ -52,6 +58,8 @@ const items: TabsProps['items'] = [
   },
 ];
 
-const leftCom: React.FC = () => <Tabs className='leftCom' defaultActiveKey="1" items={items} onChange={onChange} />;
+ return <Tabs className='leftCom' defaultActiveKey="1" items={items} />;
 
-export default leftCom;
+}
+
+// export default LeftCom;
