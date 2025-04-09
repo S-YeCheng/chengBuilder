@@ -1,18 +1,4 @@
-
-
-// 属性映射
-interface AttributeMap {
-  [key: string]: ComAttribute[]
-}
-
-interface ComAttribute {
-  name: string
-  type: string
-  value: any
-  options?: Array<any>
-  defaultValue?: string
-}
-
+import { ComAttribute } from "../../attributeMap";
 const buttonAttribute:ComAttribute[] = [
   {
     name: '设置按钮文字',
@@ -70,11 +56,4 @@ const buttonAttribute:ComAttribute[] = [
     defaultValue: 'default',
   }
 ]
-
-const attributeMap:AttributeMap = {
-  Button: buttonAttribute
-}
-
-export  {
-  attributeMap
-}
+export default buttonAttribute

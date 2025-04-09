@@ -1,5 +1,5 @@
 import Button from './button';
 import Input from './input';
-
-export { Button, Input };
+import Icon from './icon';
+export { Button, Input,Icon };
 

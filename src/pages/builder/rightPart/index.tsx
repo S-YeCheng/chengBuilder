@@ -2,7 +2,7 @@
 import { Tabs } from 'antd';
 import type {TabsProps } from 'antd';
 import './index.css';
-import {attributeMap} from './staticUtils/attributeMap'
+import {attributeMap} from './attributeMap'
 import InputComponent from './staticComponents/inputComponent'
 // import store from '../../../store'
 // import { subscribeHook } from '../../../store/subscribe';

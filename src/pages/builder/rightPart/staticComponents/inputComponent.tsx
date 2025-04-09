@@ -1,7 +1,18 @@
-import { Input,Switch,Select } from "antd"
+import { Input,Switch,Select, InputNumber, Button } from "antd"
+import * as modalObj from "../../../modal"
+import { useState } from "react"
 
 export default function InputComponent(props:any) {
-  const {onChange,type,defaultValue,options,selectComNode,value} = props
+  const {onChange,type,defaultValue,options,selectComNode,value,name,modalType='IconSelect' } = props
+  // console.log(modalObj[modalType as keyof typeof modalObj]);
+  const ModalComponent = modalObj[modalType as keyof typeof modalObj] 
+    
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const showModal = () => {
+    console.log(123);
+    
+    setIsModalOpen(true)
+  }
   
   const getComponent = () => {
   switch(type){
@@ -11,12 +22,17 @@ export default function InputComponent(props:any) {
       return <Switch checked={selectComNode[value] || defaultValue} onChange={onChange} />
     case 'select':
       return <Select style={{width:'100px'}} options={options} value={selectComNode[value] || defaultValue} onChange={onChange} />
+    case 'number':
+      return <InputNumber value={selectComNode[value] || defaultValue} style={{width:'120px'}} defaultValue={defaultValue} onChange={onChange} />
+    case 'modal':
+      return <Button  style={{width:'120px'}} onClick={showModal}>{name}</Button>
    
   }
 }
   return (
-    <>
-    {getComponent()}
-    </>
+    <div>
+      {getComponent()}
+      <ModalComponent isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}  value={value}></ModalComponent>
+    </div>
   )
 }
