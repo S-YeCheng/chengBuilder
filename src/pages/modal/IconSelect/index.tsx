@@ -14,12 +14,24 @@ interface IconItem {
 
 export default function IconSelect(props:any) {
 
+  // const getComById = (comId: any, comList: any) => {
+  //   let treeList = [...comList]
+  //   for (let i = 0; i < treeList.length; i++) {
+  //     if (treeList[i].comId === comId) {
+  //       return treeList[i]
+  //     }
+  //     else if (treeList[i]?.childList?.length > 0) {
+  //       treeList.push(...treeList[i].childList)
+  //     }
+  //   }
+  // }
+
   const comReducer = useSelector((state:any)=>state.comReducer)
   const dispatch = useDispatch()
 
   const comList = JSON.parse(JSON.stringify(comReducer.comList))
-  const selectCom = comReducer.selectCom
-  const selectComNode = comList.find((item:any)=>item.id === selectCom.id)
+  const selectCom = comReducer.selectCom // 选中的组件id
+  const selectComNode =comList.find((item:any)=>item.comId === selectCom)
 
   const {isModalOpen, setIsModalOpen} = props
   const [iconComponents, setIconComponent] = useState<IconItem[]>([])
@@ -30,7 +42,7 @@ export default function IconSelect(props:any) {
       const iconsModule = await import('@ant-design/icons')
       const icons = Object.fromEntries(
         Object.entries(iconsModule).filter(([key]) => {
-        return key.endsWith("Outlined") || key.endsWith("Filled") || key.endsWith("TwoTone");
+        return key.endsWith("Outlined") || key.endsWith("Filled") || key.endsWith("TwoTone")
       })
     )as { [key: string]: ComponentType<any> }
     

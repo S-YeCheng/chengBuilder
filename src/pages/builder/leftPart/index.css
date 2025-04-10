@@ -1,20 +1,37 @@
 .leftCom {
   width: 280px;
   position: absolute;
-  top: 10%;
+  top: 64px;
   left: 0;
   background-color: white;
   height: calc(100vh - 64px);
   border-right: 1px solid #f0f0f0;
   overflow-y: auto;
-}
-.componentItem{
-  width: 80px;
-  height: 30px;
-  margin-top: 10px;
-  margin-left: 15px;
-  border: 1px solid rgb(187, 181, 181);
-  border-radius: 4px;
-  padding: 10px;
+  padding: 16px;
 }
 
+.componentItem {
+  width: 80px;
+  height: 30px;
+  margin-bottom: 8px;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  background-color: #fafafa;
+}
+
+.componentItem:hover {
+  border-color: #1890ff;
+  background-color: #e6f7ff;
+  color: #1890ff;
+}
+
+.componentList {
+  display: flex;
+  flex-wrap: wrap;
+  line-height: 30px;
+}

@@ -1,10 +1,10 @@
-import React, { useState , useEffect,ComponentType } from 'react'
+import  { useState , useEffect,ComponentType } from 'react'
 
 
-interface IconItem {
-  type:string,
-  component:React.ReactElement
-}
+// interface IconItem {
+//   type:string,
+//   component:React.ReactElement
+// }
 export default function Icon(props:any) {
   const {rotate,spin,type='RiseOutlined'} = props
   const [IconComponent,setIconComponent] = useState<ComponentType<any>| null>(null)
@@ -19,6 +19,8 @@ export default function Icon(props:any) {
       )as {[key:string]:ComponentType<any>}
       const component = icons[type]
       setIconComponent(component)
+      console.log(component);
+      
     }
     loadIcon()
   },[type])

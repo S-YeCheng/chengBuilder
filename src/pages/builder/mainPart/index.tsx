@@ -42,6 +42,8 @@ export default function MainCom() {
     let comId=`comId_${Date.now()}`
     if(dragId){
       const dragCom = comList.find((com:ComJson)=>com.comId == dragId)
+      console.log(dragCom);
+      
       dragCom.style = {
         ...dragCom.style,
         left: parseInt(dragCom.style.left) + (e.clientX - (distance.current.startX || 0)) + 'px',

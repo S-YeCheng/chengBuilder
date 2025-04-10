@@ -1,6 +1,10 @@
 import buttonAttribute from "./staticUtils/comAttribute/buttonAttribute"
+import checkboxAttribute from "./staticUtils/comAttribute/checkboxAttribute"
 import iconAttribute from "./staticUtils/comAttribute/iconAttribute"
 import inputAttribute from "./staticUtils/comAttribute/inputAttribute"
+import radioAttribute from "./staticUtils/comAttribute/radioAttribute"
+import rateAttribute from "./staticUtils/comAttribute/rateAttribute"
+import switchAttribute from "./staticUtils/comAttribute/switchAttribute"
 
 // 属性映射
 interface AttributeMap {
@@ -21,7 +25,11 @@ export interface ComAttribute {
 const attributeMap:AttributeMap = {
   Button: buttonAttribute,
   Input: inputAttribute,
-  Icon: iconAttribute
+  Icon: iconAttribute,
+  Checkbox: checkboxAttribute,
+  Radio: radioAttribute,
+  Rate: rateAttribute,
+  Switch: switchAttribute
 }
 
 export  {

@@ -1,12 +1,43 @@
 .mainCom{
   width: 100%;
   height:100vh;
- 
-  
 }
 
 .selectCom{
-  border: 1px solid #6c63ff;
+  position: relative;
+  border: 2px solid #1890ff;
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(24, 144, 255, 0.2);
+  transition: all 0.3s ease;
+  padding: 4px;
+}
+
+.selectCom::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 2px dashed #1890ff;
+  border-radius: 4px;
+  pointer-events: none;
+  animation: borderDance 1.5s linear infinite;
+}
+
+@keyframes borderDance {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 
