@@ -18,17 +18,19 @@ const inputAttribute:ComAttribute[] = [
   {
     name:'默认值',
     value: 'defaultValue',
-    type: 'input',
-     
-      
-   
-    
+    type: 'input', 
   },
   {
     name:'是否禁用',
     value: 'disabled',
     type: 'switch',
      
-  }
+  },
+  {
+    name: '标签',
+    value: 'label',
+    type: 'input',
+  },
+
 ]
 export default inputAttribute

@@ -8,6 +8,7 @@ import InputComponent from './staticComponents/inputComponent'
 // import { subscribeHook } from '../../../store/subscribe';
 import {setComList } from '../../../store/comSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { getComById } from '../../../utils/nodeUtils';
 
 
 
@@ -20,7 +21,7 @@ const dispatch = useDispatch()
 
 const comList  = JSON.parse(JSON.stringify(comReducer.comList)) || []
 const selectCom = comReducer.selectCom
-const selectComNode = comList.find((item:any)=>item.comId == selectCom)
+const selectComNode = getComById(selectCom,comList)
 
 // console.log(selectComNode);
 

@@ -9,7 +9,6 @@ export default function InputComponent(props:any) {
     
   const [isModalOpen, setIsModalOpen] = useState(false)
   const showModal = () => {
-    console.log(123);
     
     setIsModalOpen(true)
   }

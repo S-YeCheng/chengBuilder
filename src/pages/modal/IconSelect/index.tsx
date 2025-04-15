@@ -5,6 +5,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setComList } from "../../../store/comSlice";
 import './index.css'
+import { getComById } from "../../../utils/nodeUtils";
 
 
 interface IconItem {
@@ -31,7 +32,8 @@ export default function IconSelect(props:any) {
 
   const comList = JSON.parse(JSON.stringify(comReducer.comList))
   const selectCom = comReducer.selectCom // 选中的组件id
-  const selectComNode =comList.find((item:any)=>item.comId === selectCom)
+  // const selectComNode =comList.find((item:any)=>item.comId === selectCom)
+  const selectComNode = getComById(selectCom,comList)
 
   const {isModalOpen, setIsModalOpen} = props
   const [iconComponents, setIconComponent] = useState<IconItem[]>([])
