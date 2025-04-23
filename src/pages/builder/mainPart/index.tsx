@@ -5,15 +5,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setComList, setDragCom, setSelectCom } from '../../../store/comSlice'
 import { getComById } from '../../../utils/nodeUtils'
 import { componentTextMap } from '../leftPart/staticUtils/iconLists'
+import { includesList, onLeftDropContainer, onMainPartDropContainer } from './staticUtil'
 
 let num = 1
+
+export interface ComJson {
+  comType: string;
+  comId: string;
+  style?: any;
+  childList?: ComJson[];
+}
+
 export default function MainCom() {
-  interface ComJson {
-    comType: string;
-    comId: string;
-    style?: any;
-    childList?: ComJson[];
-  }
 
   const comReducer = useSelector((state:any)=>state.comReducer)
   const dispatch = useDispatch()
@@ -31,40 +34,18 @@ export default function MainCom() {
   const onDropContainer = (com: ComJson)=> {
     return (e:any) => {
       const dragCom = getComById(dragId,comList)
-      if(com.comType == 'Form'){
-        if(dragCom && dragCom!==com){
-          const index = comList.findIndex((com:ComJson)=>com.comId == dragCom.comId)
-          if(index!=-1){
-            comList.splice(index,1)
-          }
-          if(!com.childList){
-            com.childList = []
-          }
-          delete dragCom.style
-          com.childList.push(dragCom)
+      if(includesList.hasOwnProperty(com.comType)){
+        if(dragCom && dragCom !== com){
+          onMainPartDropContainer(comList,dragCom,com,e)
           dispatch(setComList(comList))
-          e.stopPropagation()
           setDragId('')
           return
         }
-        else if(dragCom ){
+        else if(dragCom){
           return
         }
-        let comId = `comId_${Date.now()}`
-        let comNode = {
-          comType:nowCom,comId,caption:componentTextMap[nowCom] + num++
-        }
-        if(comNode.comType == 'Form'){
-          e.stopPropagation()
-          return
-        }
-        if(!com.childList){
-          com.childList = []
-        }
-        com.childList.push(comNode)
+        onLeftDropContainer(com,nowCom,e)
         dispatch(setComList(comList))
-        e.stopPropagation()
-        
       }
     }
   }
