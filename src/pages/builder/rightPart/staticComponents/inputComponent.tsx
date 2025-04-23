@@ -1,4 +1,4 @@
-import { Input,Switch,Select, InputNumber, Button } from "antd"
+import { Input,Switch,Select, InputNumber, Button, ColorPicker } from "antd"
 import * as modalObj from "../../../modal"
 import { useState } from "react"
 
@@ -20,9 +20,11 @@ export default function InputComponent(props:any) {
     case 'switch':
       return <Switch checked={selectComNode[value] || defaultValue} onChange={onChange} />
     case 'select':
-      return <Select style={{width:'100px'}} options={options} value={selectComNode[value] || defaultValue} onChange={onChange} />
+      return <Select style={{width:'100px'}} options={options} value={selectComNode[value]|| selectComNode?.comStyle?.[value] || defaultValue} onChange={onChange} />
+    case 'color':
+      return <ColorPicker value={selectComNode?.comStyle?.[value] || "#FFFFFF"} defaultValue={defaultValue} showText style={{width:'120px'}} onChange={onChange} />
     case 'number':
-      return <InputNumber value={selectComNode[value] || defaultValue} style={{width:'120px'}} defaultValue={defaultValue} onChange={onChange} />
+      return <InputNumber value={selectComNode[value] ||parseInt(selectComNode?.comStyle?.[value]) || defaultValue} style={{width:'120px'}} defaultValue={defaultValue} onChange={onChange} />
     case 'modal':
       return <Button  style={{width:'120px'}} onClick={showModal}>{name}</Button>
    

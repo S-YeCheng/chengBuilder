@@ -52,7 +52,7 @@ export default function MainCom() {
         }
         let comId = `comId_${Date.now()}`
         let comNode = {
-          comType:nowCom,comId
+          comType:nowCom,comId,caption:componentTextMap[nowCom] + num++
         }
         if(comNode.comType == 'Form'){
           e.stopPropagation()
